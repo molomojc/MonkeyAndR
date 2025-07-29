@@ -1,87 +1,121 @@
-# Welcome to React Router!
+# Table of Contents
 
-A modern, production-ready template for building full-stack React applications using React Router.
+1)Introduction
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+2)Tech Stack
 
-## Features
+3)Folder Structure
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+4)Installation
 
-## Getting Started
+5)Usage
 
-### Installation
+6)Contributing
 
-Install the dependencies:
+# Introduction
 
-```bash
-npm install
-```
+CureNet is a modern health web application designed to streamline patient engagement, health record management, and wellness education. The system empowers users to schedule appointments, access curated content, and interact with their healthcare data securely.
 
-### Development
 
-Start the development server with HMR:
+# Tech Stack
 
-```bash
-npm run dev
-```
+FrontEnd
 
-Your application will be available at `http://localhost:5173`.
+-React
 
-## Building for Production
+-TypeScript
 
-Create a production build:
+-JavaScript XML
 
-```bash
-npm run build
-```
+-React Router v7
 
-## Deployment
+-CSS
 
-### Docker Deployment
+BackEnd
 
-To build and run using Docker:
+-Node.js
 
-```bash
-docker build -t my-app .
+-Express.js
 
-# Run the container
-docker run -p 3000:3000 my-app
-```
 
-The containerized application can be deployed to any platform that supports Docker, including:
+Frameworks/Technologies
 
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
+-Supabase
 
-### DIY Deployment
+# Folder Structure
 
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
+FrontEnd
 
-Make sure to deploy the output of `npm run build`
+    CureNet-Frontend/
+    ├── app/
+    │   ├── routes/
+    │   │   ├── About.jsx
+    │   │   ├── Dashboard.tsx
+    │   │   ├── home.tsx
+    │   │   ├── Login.tsx
+    │   │   ├── Register.tsx
+    │   │   ├── profile.jsx
+    │   └── app.css
+    ├── welcome/
+    │   ├── welcome.tsx
+    │   ├── logo-light.svg
+    │   └── logo-dark.svg
+    ├── Images/
+    ├── public/
+    ├── Dockerfile
+    ├── package.json
+    └── react-router.config.ts
 
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
 
-## Styling
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+BackEnd
 
----
+    CURENET_API/
+     ├── node_modules/
+     ├── main/
+     ├── src/
+     │   ├── middleware/
+     │   ├── auth.js
+     │   ├── dashboard.js
+     │   ├── diagnosesRoutes.js
+     │   ├── profileroutes.js
+     │   ├── supabase.js
+     │   ├── test.js
+     │   └── main.js
+     ├── .env
+     ├── package.json
+     ├── package-lock.json
+     └── README.md
 
-Built with ❤️ using React Router.
+
+# Installation
+1)Clone the repository
+
+     git clone https://github.com/yourusername/CureNet.git
+     cd CureNet
+
+2)Install dependencies
+
+     npm install
+
+
+3)Start the frontend
+
+    npm run dev
+
+
+# Usage
+
+Once launched locally, CureNet is accessible at http://localhost:3000. From there, users can:
+- Register/login
+- View their dashboard
+- Access profile and health summaries
+
+
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first
+to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
