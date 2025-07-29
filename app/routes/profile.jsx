@@ -45,7 +45,11 @@ const Profile = ({ userEmail, onLogout }) => {
       [e.target.name]: e.target.value,
     }));
   };
-
+  
+  const onSubmitt = async () => {
+    await supabase.auth.signOut(); // Logs out the user
+    navigate('/login'); // Redirects to the login page
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage('Submitting...');
@@ -123,7 +127,7 @@ const Profile = ({ userEmail, onLogout }) => {
         <p style={{ marginTop: '1rem', fontWeight: 'bold' }}>{message}</p>
 
         <button
-          onClick={onLogout}
+          onClick={onSubmitt}
           className="logout-button"
           style={{ marginTop: '1rem', backgroundColor: '#666' }}
         >

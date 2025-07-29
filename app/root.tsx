@@ -8,6 +8,7 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
+import React, { useEffect, useState } from 'react';
 import "./app.css";
 // Allowing for use of links
 import { Link } from 'react-router-dom';
@@ -16,6 +17,26 @@ import MonkeyAndRiverLogo1 from 'Images/MonkeyAndRiverLogo1.png';
 import Login from "./routes/Login";
 import { useNavigate } from 'react-router-dom';
 import Dashboard from "./routes/Dashboard";
+import { createClient } from '@supabase/supabase-js';
+//import { i } from "node_modules/@react-router/dev/dist/routes-DHIOx0R9";
+
+// Supabase client setup
+const supabaseUrl = "https://vwiefjfsokkzgjgswsvj.supabase.co";
+const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ3aWVmamZzb2tremdqZ3N3c3ZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3ODgxNjksImV4cCI6MjA2OTM2NDE2OX0.HgjuGLBQ_gBf7tBPe_ee8_nUjuHFkh6vNA2lBk999dM";
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+//const navigate = useNavigate(); // Initialize useNavigate
+
+async function checkSession() {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  const isLoggedIn = !!session;
+  console.log("Is Logged In:", isLoggedIn);
+
+  return isLoggedIn;
+}
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -49,32 +70,60 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  // Linking the login page
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  function handleStartBtn() {
-    navigate('/login'); // Navigate to the login route
-  }
-  return(
-      <>
-    <header className="TopBar">
-      <div className="NameContainer">
-        <img id="Logo" src={MonkeyAndRiverLogo1} alt="WebImage" />
-        <h1 id="AppName">CureNet</h1>
-      </div>
-      <nav className="Navigation">
-        <Link className="NavLink" to="/dashboard">Dashboard</Link>
-        <Link className="NavLink" to="/diagnose">Diagnose</Link>
-        <Link className="NavLink" to="/profile">Profile</Link>
-        <Link className="NavLink" to="/About">About</Link>
-        <button className="NavLink" id="LoginBtn" onClick={handleStartBtn}>Start</button>
-      </nav>
-    </header>
-    <Outlet />
-  </>
-  )
+  useEffect(() => {
+    const checkSession = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      setIsLoggedIn(!!session);
+
+      // Listen to auth state changes
+      const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+        setIsLoggedIn(!!session);
+      });
+
+      return () => {
+        listener?.subscription.unsubscribe();
+      };
+    };
+
+    checkSession();
+  }, []);
+
+  const handleStartBtn = async () => {
+    if (isLoggedIn) {
+      await supabase.auth.signOut();
+      setIsLoggedIn(false);
+      navigate('/'); // optional: redirect to home
+    } else {
+      navigate('/login');
+    }
+  };
+
+  return (
+    <>
+      <header className="TopBar">
+        <div className="NameContainer">
+          <img id="Logo" src={MonkeyAndRiverLogo1} alt="WebImage" />
+          <h1 id="AppName">CureNet</h1>
+        </div>
+        <nav className="Navigation">
+          <Link className="NavLink" to="/dashboard">Dashboard</Link>
+          <Link className="NavLink" to="/diagnose">Diagnose</Link>
+          <Link className="NavLink" to="/profile">Profile</Link>
+          <Link className="NavLink" to="/About">About</Link>
+          <button className="NavLink" id="LoginBtn" onClick={handleStartBtn}>
+            {isLoggedIn ? 'Logout' : 'Start'}
+          </button>
+        </nav>
+      </header>
+      <Outlet />
+    </>
+  );
 }
-
 // function to render the login/signUp form
 function handleLoginBtn(){
   return(
