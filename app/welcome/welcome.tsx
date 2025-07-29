@@ -2,13 +2,146 @@
 // import logoLight from "./logo-light.svg";
 import "app/app.css";
 import MonkeyAndRiverBackground from 'Images/MonkeyAndRiverBackground.jpg';
-
+//import navigation
+import { useNavigate } from 'react-router-dom';
 
 
 export function Welcome() {
+  //navigation
+  const navigate = useNavigate();
   return (
     <div className="flex">
-      <img src={MonkeyAndRiverBackground} alt="WebImage" />
+
+      {/* <img src={MonkeyAndRiverBackground} alt="WebImage" /> */}
+      
+    <div className="welcome-container">
+      <style>
+        {`
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+        .welcome-container {
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          color: #ffffff; /* White text for contrast */
+          font-family: 'Inter', sans-serif;
+          background-image: url('Images/MonkeyAndRiverBackground.jpg'); /* Dummy blue background image */
+          background-size: cover; /* Cover the entire container */
+          background-position: center; /* Center the background image */
+          background-repeat: no-repeat;
+          position: relative;
+          overflow: hidden; /* Prevent scrollbars from image overflow */
+          padding: 1rem; /* Basic padding */
+        }
+
+        /* Overlay for better text readability */
+        .welcome-container::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 50, 0.4); /* Dark blue overlay with transparency */
+          z-index: 1; /* Ensure overlay is above background image */
+        }
+
+        .welcome-content {
+          position: relative; /* Position content above the overlay */
+          z-index: 2;
+          max-width: 900px; /* Limit content width */
+          padding: 1.5rem;
+          background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white background for content */
+          border-radius: 10px;
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .welcome-slogan {
+          font-size: 3.5rem; /* Large font size for slogan */
+          font-weight: 800; /* Extra bold */
+          margin-bottom: 1.5rem;
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for pop */
+          line-height: 1.2;
+        }
+
+        .welcome-subtext {
+          font-size: 1.5rem; /* Subtext for more detail */
+          font-weight: 400;
+          margin-bottom: 2.5rem;
+          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+        }
+
+        .get-started-button {
+          background-color: #2196f3; /* Bright blue button */
+          color: #ffffff;
+          padding: 1rem 2.5rem;
+          border: none;
+          border-radius: 50px; /* Pill-shaped button */
+          font-size: 1.25rem; /* Larger button text */
+          font-weight: 700;
+          cursor: pointer;
+          transition: background-color 0.3s ease, transform 0.2s ease;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .get-started-button:hover {
+          background-color: #1976d2; /* Darker blue on hover */
+          transform: translateY(-3px); /* Slight lift effect */
+        }
+
+        .get-started-button:active {
+          transform: translateY(0);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+          .welcome-slogan {
+            font-size: 2.5rem;
+          }
+          .welcome-subtext {
+            font-size: 1.2rem;
+          }
+          .get-started-button {
+            padding: 0.8rem 2rem;
+            font-size: 1.1rem;
+          }
+          .welcome-content {
+            padding: 1rem;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .welcome-slogan {
+            font-size: 2rem;
+          }
+          .welcome-subtext {
+            font-size: 1rem;
+          }
+          .get-started-button {
+            padding: 0.7rem 1.8rem;
+            font-size: 1rem;
+          }
+          .welcome-content {
+            padding: 0.8rem;
+            border-radius: 8px;
+          }
+        }
+        `}
+      </style>
+      <div className="welcome-content">
+        <h1 className="welcome-slogan">Your Health, Powered by AI.</h1>
+        <p className="welcome-subtext">
+          Intelligent insights for a healthier you.
+        </p>
+        <button className="get-started-button" onClick={() => navigate('/login')}>
+          Get Started
+        </button>
+      </div>
+    </div>
     </div>
   );
 }
