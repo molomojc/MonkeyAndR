@@ -117,7 +117,7 @@ BackEnd
 
 # Usage
 
-Once launched locally, CureNet is accessible at http://localhost:3000. From there, users can:
+Once launched locally, CureNet is accessible at http://localhost:portNumber on a specific port number. From there, users can:
 - Register/login
 - View their dashboard
 - Access profile and health summaries
