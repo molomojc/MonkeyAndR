@@ -103,10 +103,21 @@ BackEnd
 
     npm run dev
 
+4)Clone for the backend
+
+    git clone https://github.com/molomojc/CureNet_API
+
+5)Install the dependencies
+
+    npm install
+
+6)Start the backend
+
+    node main.js
 
 # Usage
 
-Once launched locally, CureNet is accessible at http://localhost:3000. From there, users can:
+Once launched locally, CureNet is accessible at http://localhost:portNumber on a specific port number. From there, users can:
 - Register/login
 - View their dashboard
 - Access profile and health summaries
