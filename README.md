@@ -91,8 +91,8 @@ BackEnd
 # Installation
 1)Clone the repository
 
-     git clone https://github.com/yourusername/CureNet.git
-     cd CureNet
+     git clone [https://github.com/yMasineD/CureNet.git](https://github.com/molomojc/MonkeyAndR)
+     cd MonkeyAndR
 
 2)Install dependencies
 
@@ -102,6 +102,18 @@ BackEnd
 3)Start the frontend
 
     npm run dev
+
+4) Clone for the backend
+
+    git clone https://github.com/molomojc/CureNet_API
+
+5) Install the dependencies
+
+    npm install
+
+6) Start the backend
+
+   node main.js
 
 
 # Usage
