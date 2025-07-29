@@ -9,6 +9,13 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+// Allowing for use of links
+import { Link } from 'react-router-dom';
+import MonkeyAndRiverLogo1 from 'Images/MonkeyAndRiverLogo1.png';
+// Importing the login form
+import Login from "./routes/Login";
+import { useNavigate } from 'react-router-dom';
+import Dashboard from "./routes/Dashboard";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -42,7 +49,37 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  // Linking the login page
+  const navigate = useNavigate();
+
+  function handleStartBtn() {
+    navigate('/login'); // Navigate to the login route
+  }
+  return(
+      <>
+    <header className="TopBar">
+      <div className="NameContainer">
+        <img id="Logo" src={MonkeyAndRiverLogo1} alt="WebImage" />
+        <h1 id="AppName">CureNet</h1>
+      </div>
+      <nav className="Navigation">
+        <Link className="NavLink" to="/dashboard">Dashboard</Link>
+        <Link className="NavLink" to="#">Diagnose</Link>
+        <Link className="NavLink" to="#">Profile</Link>
+        <Link className="NavLink" to="#">About</Link>
+        <button className="NavLink" id="LoginBtn" onClick={handleStartBtn}>Start</button>
+      </nav>
+    </header>
+    <Outlet />
+  </>
+  )
+}
+
+// function to render the login/signUp form
+function handleLoginBtn(){
+  return(
+    <Login />
+  )
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
