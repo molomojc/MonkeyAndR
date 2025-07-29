@@ -1,62 +1,114 @@
-// The registration page
 import "app/app.css";
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
+function Register() {
+  const navigate = useNavigate();
 
-function Register(){
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
 
-    const navigate = useNavigate();
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-    function handleLoginBtn(){
-    navigate('/login'); // Navigate to the login route
+  function handleClose() {
+    navigate('/');
+  }
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+
+    const { firstName, lastName, email, password, confirmPassword } = formData;
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      setLoading(false);
+      return;
     }
 
-    function handleClose(){
-        navigate('/');
+    try {
+      const response = await fetch('http://localhost:5000/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName, lastName, email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || 'Something went wrong');
+      } else {
+        alert('Registration successful!');
+        navigate('/login');
+      }
+    } catch (err) {
+      setError('Server error');
+    } finally {
+      setLoading(false);
     }
-    return(
+  };
+
+  return (
     <div className="wrapper1">
-        <div className="formBox Regist">
-            <span className="CloseIcon" onClick={handleClose}>X</span>
-                <form action="#">
-                    <h2>Registration</h2>
-                    <div className="inputBox">
-                        <span className="icon">{/*<ion-icon name="person"></ion-icon>*/}</span>
-                        <input type="text" required />
-                        <label>First name</label>
-                    </div>
-                    <div className="inputBox">
-                        <span className="icon">{/*<ion-icon name="person"></ion-icon>*/}</span>
-                        <input type="text" required />
-                        <label>Last name</label>
-                    </div>
-                    <div className="inputBox">
-                        <span className="icon">{/*<ion-icon name="mail"></ion-icon>*/}</span>
-                        <input type="email" required />
-                        <label>Email</label>
-                    </div>
-                    <div className="inputBox">
-                        <span className="icon">{/*<ion-icon name="lock-closed"></ion-icon>*/}</span> 
-                        <input type="password" required />
-                        <label>Password</label>
-                    </div>
-                    <div className="inputBox">
-                        <span className="icon">{/*<ion-icon name="person"></ion-icon>*/}</span>
-                        <input type="text" required />
-                        <label>Confirm Password</label>
-                    </div>
-                    <div className="TermsConditions">
-                        <label><input type="checkbox" />I agree to the </label>
-                        <a href="#"> terms & conditions</a>
-                    </div>
-                    <button type="submit" className="LoginBtn1">Register</button>
-                    <div className="register">
-                        <p>Already have an account? <Link to="/login" onClick={handleLoginBtn} className="login-link">Login</Link></p>
-                    </div>
-                </form>
-            </div>
-        </div>
-    )
+      <div className="formBox Regist">
+        <span className="CloseIcon" onClick={handleClose}>X</span>
+        <form onSubmit={handleSubmit}>
+          <h2>Registration</h2>
+
+          <div className="inputBox">
+            <input type="text" name="firstName" required onChange={handleChange} />
+            <label>First name</label>
+          </div>
+
+          <div className="inputBox">
+            <input type="text" name="lastName" required onChange={handleChange} />
+            <label>Last name</label>
+          </div>
+
+          <div className="inputBox">
+            <input type="email" name="email" required onChange={handleChange} />
+            <label>Email</label>
+          </div>
+
+          <div className="inputBox">
+            <input type="password" name="password" required onChange={handleChange} />
+            <label>Password</label>
+          </div>
+
+          <div className="inputBox">
+            <input type="password" name="confirmPassword" required onChange={handleChange} />
+            <label>Confirm Password</label>
+          </div>
+
+          <div className="TermsConditions">
+            <label><input type="checkbox" required /> I agree to the</label>
+            <a href="#"> terms & conditions</a>
+          </div>
+
+          {error && <p className="error">{error}</p>}
+
+          <button type="submit" className="LoginBtn1" disabled={loading}>
+            {loading ? 'Registering...' : 'Register'}
+          </button>
+
+          <div className="register">
+            <p>Already have an account? <Link to="/login">Login</Link></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 }
+
 export default Register;

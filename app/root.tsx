@@ -64,9 +64,9 @@ export default function App() {
       </div>
       <nav className="Navigation">
         <Link className="NavLink" to="/dashboard">Dashboard</Link>
-        <Link className="NavLink" to="#">Diagnose</Link>
-        <Link className="NavLink" to="#">Profile</Link>
-        <Link className="NavLink" to="#">About</Link>
+        <Link className="NavLink" to="/diagnose">Diagnose</Link>
+        <Link className="NavLink" to="/profile">Profile</Link>
+        <Link className="NavLink" to="/About">About</Link>
         <button className="NavLink" id="LoginBtn" onClick={handleStartBtn}>Start</button>
       </nav>
     </header>
