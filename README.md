@@ -126,6 +126,11 @@ Once launched locally, CureNet is accessible at http://localhost:portNumber on a
 ### UNIT TESTING 
 testing- for connection with supabase (fetching the environment variables)
 <img width="1142" height="290" alt="image" src="https://github.com/user-attachments/assets/01cd5720-2006-4098-bf25-50bbd7903cc7" />
+testing the profile
+this fails but works on the front-end given enough time we shall debug it
+<img width="900" height="290" alt="image" src="https://github.com/user-attachments/assets/dfc99689-9291-4708-bdb4-7e4e608a078c" />
+testing the register and login but also works in front-end we also shall debug it
+<img width="1174" height="298" alt="image" src="https://github.com/user-attachments/assets/a4b48734-94b7-4cc3-be3d-6762cec64e12" />
 
 
 
